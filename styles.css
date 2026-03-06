@@ -623,6 +623,26 @@ table { width: 100%; border-collapse: collapse; }
 /* ── Footer ── */
 .footer { text-align: center; padding: var(--s2) 0; color: rgba(255,255,255,0.4); }
 
+/* ── Print bar (inside location report) ── */
+.report-print-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 0 var(--s2) 0;
+}
+.btn-print {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-print:hover { background: var(--sand2); border-color: var(--sand); }
+
 /* ── Responsive ── */
 @media (max-width: 1050px) {
   .kpis { grid-template-columns: repeat(2, 1fr); }
@@ -642,4 +662,34 @@ table { width: 100%; border-collapse: collapse; }
   .report-analysis-grid { grid-template-columns: 1fr; }
   .tbar-row { grid-template-columns: 1fr 36px; }
   .tbar-track, .tbar-pct, .score-lbl { display: none; }
+}
+
+/* ── Print ── */
+@media print {
+  body { background: #fff !important; color: #1E2745; }
+
+  /* Altijd verbergen bij afdrukken */
+  .bg-watermark,
+  .titelblad,
+  .header-actions,
+  .upload-card,
+  .no-print { display: none !important; }
+
+  /* Kaarten zichtbaar op wit papier */
+  .card {
+    box-shadow: 0 0 0 1px rgba(30,39,69,0.15) !important;
+    background: #fff !important;
+  }
+
+  /* Voorkom dat kaarten doorbreken over pagina's */
+  .card { break-inside: avoid; page-break-inside: avoid; }
+
+  /* Locatierapport begint op een nieuwe pagina (volledige modus) */
+  #locationReport:not([hidden]) { break-before: page; }
+
+  /* ── Rapport-only modus (body.print-report) ── */
+  body.print-report .site-header,
+  body.print-report .titelblad,
+  body.print-report main > *:not(#locationReport) { display: none !important; }
+  body.print-report #locationReport { display: block !important; break-before: auto; }
 }

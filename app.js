@@ -968,6 +968,20 @@ function wireEvents() {
     downloadTextFile("sample-welzijn-in-beeld.csv", buildSampleCsv());
   });
 
+  el("printDashboardBtn")?.addEventListener("click", () => {
+    document.body.classList.remove("print-report");
+    window.print();
+  });
+
+  el("printReportBtn")?.addEventListener("click", () => {
+    document.body.classList.add("print-report");
+    window.print();
+  });
+
+  window.addEventListener("afterprint", () => {
+    document.body.classList.remove("print-report");
+  });
+
   ["filterFase","filterSearch"].forEach(id =>
     el(id)?.addEventListener(id === "filterSearch" ? "input" : "change", applyFiltersAndRender)
   );
