@@ -308,9 +308,9 @@ select:focus, input[type="text"]:focus {
 .pib-3 { background: rgba(26,126,122,0.10); border: 1px solid rgba(26,126,122,0.18); }
 .pib-4 { background: rgba(200,149,26,0.12); border: 1px solid rgba(200,149,26,0.22); }
 
-.pib-title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
-.pib-desc  { font-size: 13px; color: var(--text2); line-height: 1.45; }
-.phase-top-note { font-size: 13px; font-weight: 600; color: #A87818; margin-top: 7px; }
+.pib-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.pib-desc  { font-size: 15px; color: var(--text2); line-height: 1.45; }
+.phase-top-note { font-size: 15px; font-weight: 600; color: #A87818; margin-top: 8px; }
 
 /* ── Heatmap ── */
 .table-wrap { overflow: auto; border-radius: 10px; border: 1px solid var(--border); }
