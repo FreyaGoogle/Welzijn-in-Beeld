@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welzijn in Beeld – Domus Valuas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Logo watermark achtergrond -->
+  <div class="bg-watermark" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-text">
+          <span class="brand-name">DOMUS VALUAS</span>
+          <span class="brand-divider">·</span>
+          <span class="brand-sub">Welzijn in Beeld &nbsp;·&nbsp; IJkkader Houding &amp; Betekenis</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a class="btn-ghost" href="#" id="downloadSample">Download sample CSV</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Titelblad ── -->
+  <section class="titelblad">
+    <div class="container titelblad-inner">
+      <img src="assets/logo-white.png" class="titelblad-icon" alt="Domus Valuas" />
+      <div class="titelblad-sep"></div>
+      <div class="titelblad-content">
+        <h1 class="titelblad-title">Welzijn in Beeld</h1>
+        <p class="titelblad-sub">IJkkader Houding &amp; Betekenis</p>
+      </div>
+    </div>
+  </section>
+
+  <main class="container main">
+
+    <!-- ── Data-invoer ── -->
+    <section class="card upload-card">
+      <div class="upload-left">
+        <h2>Data-invoer</h2>
+        <p class="muted">Upload een CSV. Verwerking gebeurt uitsluitend lokaal in je browser – er wordt niets opgeslagen of verstuurd.</p>
+      </div>
+      <div class="upload-right">
+        <div class="uploader">
+          <input type="file" id="csvFile" accept=".csv,text/csv" />
+          <div id="ingestErrors" class="error" aria-live="polite"></div>
+        </div>
+        <div id="ingestStatus" class="muted upload-status">Nog geen bestand geüpload.</div>
+      </div>
+    </section>
+
+    <!-- ── KPI cards ── -->
+    <section class="kpis">
+      <div class="kpi card">
+        <div class="kpi-icon">⬡</div>
+        <div class="kpi-label">Locaties</div>
+        <div class="kpi-value" id="kpiValid">0</div>
+        <div class="kpi-foot muted" id="kpiTotal">Totaal ingelezen: 0</div>
+      </div>
+      <div class="kpi card">
+        <div class="kpi-icon">◎</div>
+        <div class="kpi-label">Gem. eindscore</div>
+        <div class="kpi-value" id="kpiAvg">–</div>
+        <div class="kpi-foot muted">Over geldige locaties</div>
+      </div>
+      <div class="kpi card">
+        <div class="kpi-icon">⊘</div>
+        <div class="kpi-label">Begrenzing actief</div>
+        <div class="kpi-value" id="kpiBounded">0</div>
+        <div class="kpi-foot muted">Locaties met 1+ regel</div>
+      </div>
+      <div class="kpi card">
+        <div class="kpi-icon">⊞</div>
+        <div class="kpi-label">Faseverdeling</div>
+        <div class="kpi-value kpi-phases" id="kpiPhases">–</div>
+        <div class="kpi-foot muted">F1 · F2 · F3 · F4</div>
+      </div>
+    </section>
+
+    <!-- ── Filters ── -->
+    <section class="filters card">
+      <div class="filters-row">
+        <div class="field">
+          <label for="filterFase">Fase</label>
+          <select id="filterFase">
+            <option value="all">Alle</option>
+            <option value="1">Fase 1</option>
+            <option value="2">Fase 2</option>
+            <option value="3">Fase 3</option>
+            <option value="4">Fase 4</option>
+          </select>
+        </div>
+        <div class="field" id="filterRegioWrap" style="display:none">
+          <label for="filterRegio">Regio</label>
+          <select id="filterRegio">
+            <option value="all">Alle regio's</option>
+          </select>
+        </div>
+        <div class="field grow">
+          <label for="filterSearch">Zoek locatie</label>
+          <input id="filterSearch" type="text" placeholder="Typ om te zoeken…" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Totaaloverzicht ── -->
+    <section id="totaalSection" class="card totaal-card" hidden>
+      <div class="totaal-head">
+        <div>
+          <h2 id="totaalTitle">Welzijn in Beeld: Totaaloverzicht Locaties</h2>
+          <p class="muted">Scores vertegenwoordigen de positie in het groeimodel: van het leggen van een stabiel fundament tot het bereiken van een natuurlijke flow en voorbeeldfunctie.</p>
+        </div>
+        <div class="totaal-meta-box" id="totaalMeta"></div>
+      </div>
+      <div id="totaalGroups" class="totaal-groups"></div>
+    </section>
+
+    <!-- ── Charts ── -->
+    <section class="grid-2" id="chartsGrid">
+      <div class="card">
+        <div class="card-header">
+          <h2>Faseverdeling</h2>
+          <p class="muted">Aantal locaties per fase (gefilterd).</p>
+        </div>
+        <canvas id="phaseChart" height="160"></canvas>
+      </div>
+      <div class="card" id="regioChartCard" style="display:none">
+        <div class="card-header">
+          <h2>Regio-gemiddelden</h2>
+          <p class="muted">Gemiddelde eindscore per regio.</p>
+        </div>
+        <canvas id="regioChart" height="160"></canvas>
+      </div>
+      <div class="card" id="themeAvgCard">
+        <div class="card-header">
+          <h2>Thema-gemiddelden</h2>
+          <p class="muted">Gemiddelde ruwe score per thema (T01–T10).</p>
+        </div>
+        <canvas id="themeAvgChart" height="160"></canvas>
+      </div>
+      <div class="card" id="vergelijkCard" style="display:none">
+        <div class="card-header">
+          <h2>Locatie-vergelijking</h2>
+          <p class="muted">Selecteer twee locaties en zie per thema waar het verschil zit.</p>
+        </div>
+        <div class="vergelijk-selects">
+          <select id="vergelijkA" class="vergelijk-select"><option value="">Kies locatie A…</option></select>
+          <div class="vergelijk-vs">vs</div>
+          <select id="vergelijkB" class="vergelijk-select"><option value="">Kies locatie B…</option></select>
+        </div>
+        <div id="vergelijkResult"></div>
+      </div>
+    </section>
+
+    <!-- ── Regio Radar Vergelijking ── -->
+    <section id="regioRadarSection" class="card" hidden>
+      <div class="card-header">
+        <h2>Regio-vergelijking</h2>
+        <p class="muted">Gemiddelde score per thema per regio — strategisch overzicht voor het MT.</p>
+      </div>
+      <div id="regioRadars" class="regio-radars"></div>
+    </section>
+
+    <!-- ── Heatmap + Detail ── -->
+    <section class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <h2>Heatmap</h2>
+          <p class="muted">Klik op een locatie voor het volledige rapport.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="heatmap" id="heatmapTable">
+            <thead id="heatmapHead"></thead>
+            <tbody id="heatmapBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Locatie</h2>
+          <p class="muted">Snel overzicht geselecteerde locatie.</p>
+        </div>
+        <div id="detailEmpty" class="muted detail-empty">Klik op een rij in de heatmap.</div>
+        <div id="detailPanel" class="detail" hidden>
+          <div class="detail-top">
+            <div class="detail-title" id="detailName"></div>
+            <div class="badges">
+              <span class="badge" id="detailPhaseBadge">Fase</span>
+              <span class="badge badge-regio" id="detailRegioBadge" hidden></span>
+            </div>
+          </div>
+          <div class="detail-kpis">
+            <div class="mini">
+              <div class="mini-label">Eindscore</div>
+              <div class="mini-value" id="detailScore">–</div>
+            </div>
+            <div class="mini">
+              <div class="mini-label">Basisgemiddelde</div>
+              <div class="mini-value" id="detailBase">–</div>
+            </div>
+          </div>
+          <div class="notice" id="detailBounded" hidden>
+            <div class="notice-title">Methodische begrenzing actief</div>
+            <div class="notice-text" id="detailReasons"></div>
+            <button class="link-button" id="detailMoreBtn" type="button">Toon details</button>
+          </div>
+          <div class="accordion" id="detailAccordion" hidden>
+            <div class="hr"></div>
+            <div class="accordion-title">Details</div>
+            <table class="detail-table" id="detailTable"></table>
+          </div>
+          <div class="hr"></div>
+          <div class="card-header no-pad">
+            <h3>Radar</h3>
+            <p class="muted">Ruwe scores per thema.</p>
+          </div>
+          <canvas id="radarChart" height="220"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Locatie Rapport (full-width, verschijnt bij selectie) ── -->
+    <section id="locationReport" class="card location-report" hidden>
+      <div class="report-header">
+        <div class="report-title-block">
+          <div class="report-eyebrow">Kwaliteitsanalyse Welzijn &amp; Gastvrijheid</div>
+          <h2 class="report-main-title" id="reportName">–</h2>
+          <div class="muted report-date" id="reportDate"></div>
+        </div>
+        <div class="report-brand">
+          <img src="assets/logo-color.png" class="report-brand-icon" alt="Domus Valuas" />
+        </div>
+      </div>
+
+      <div class="report-gauge-row">
+        <div class="report-gauge-name" id="reportGaugeName"></div>
+        <div class="report-gauge-wrap" id="reportGauge"></div>
+        <div class="report-gauge-info">
+          <div class="report-gauge-title">Gemiddelde score (IJkkader)</div>
+          <div class="report-gauge-phase" id="reportPhaseLabel"></div>
+        </div>
+      </div>
+
+      <div class="report-themes-block">
+        <h3>Scores per Thema (IJkkader)</h3>
+        <div id="reportThemeBars" class="theme-bars"></div>
+      </div>
+
+      <div class="report-analysis-grid">
+        <div class="analysis-box strengths-box">
+          <h4 class="analysis-title">5 Belangrijkste Sterktes</h4>
+          <ul id="reportStrengths" class="insight-list"></ul>
+        </div>
+        <div class="analysis-box development-box">
+          <h4 class="analysis-title">5 Belangrijkste Ontwikkelpunten</h4>
+          <ul id="reportDevelopment" class="insight-list"></ul>
+        </div>
+        <div class="analysis-box leverage-box">
+          <h4 class="analysis-title">Hefboom vs. Risico</h4>
+          <div id="reportLeverage"></div>
+        </div>
+        <div class="analysis-box intervention-box">
+          <h4 class="analysis-title" id="reportInterventionTitle">Strategische Interventie</h4>
+          <div id="reportIntervention"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer muted">
+      Welzijn in Beeld &nbsp;·&nbsp; Domus Valuas &nbsp;·&nbsp; Data blijft lokaal in de browser. Er wordt niets opgeslagen of verstuurd.
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
