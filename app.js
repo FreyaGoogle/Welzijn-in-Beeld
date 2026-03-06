@@ -177,6 +177,13 @@ function parseNL(v) {
 function computeBase(themes) {
   const valid = themes.filter(v => v !== null);
   if (!valid.length) return null;
+  // Gewogen formule: T01, T03, T04, T08 tellen dubbel (deler = 14)
+  // Formule: ((T01+T03+T04+T08)*2 + T02+T05+T06+T07+T09+T10) / 14
+  if (valid.length === 10) {
+    const [t1,t2,t3,t4,t5,t6,t7,t8,t9,t10] = themes;
+    return ((t1+t3+t4+t8)*2 + t2+t5+t6+t7+t9+t10) / 14;
+  }
+  // Fallback bij ontbrekende thema's: gewoon gemiddelde
   return valid.reduce((a, b) => a + b, 0) / valid.length;
 }
 
@@ -913,39 +920,39 @@ function buildSampleCsv() {
     "T05_Hospitality","T06_Prikkelbalans","T07_Reeel_risico","T08_Belevingsgericht_werken",
     "T09_Culturele_identiteit","T10_Omgevingsondersteuning","Eindscore"];
   const rows = [
-    // Oost                                          T01  T02  T03  T04  T05  T06  T07  T08  T09  T10  Eindscore
-    ["De Boschstede",               "Oost",           7,   8,   7,   8,   7,   7,   8,   7,   7,   8,  ""],
-    ["Groot Bijstervelt",           "Oost",           8,   9,   8,   9,   8,   8,   9,   8,   8,   8,  ""],
-    ["Huis ter Weegen",             "Oost",           6,   7,   6,   7,   6,   6,   7,   6,   6,   7,  ""],
-    ["Huis Welgelegen",             "Oost",           7,   7,   7,   8,   7,   7,   7,   7,   7,   8,  ""],
-    ["Landgoed Klein Engelenburg",  "Oost",           9,   9,   8,   9,   9,   8,   9,   9,   8,   9,  ""],
-    ["De Lindeborg",                "Oost",           7,   7,   6,   7,   7,   6,   7,   7,   6,   7,  ""],
-    ["Villa Molenenk",              "Oost",           8,   7,   8,   8,   7,   8,   7,   8,   7,   8,  ""],
-    ["Villa le Monde",              "Oost",           5,   5,   6,   5,   5,   6,   5,   5,   5,   5,  ""],
-    ["Villa Pavia",                 "Oost",           8,   8,   7,   8,   8,   7,   8,   8,   8,   8,  ""],
-    ["De Sterrenschans",            "Oost",           6,   6,   7,   6,   6,   7,   6,   6,   6,   7,  ""],
-    ["De Wulperhorst",              "Oost",           9,   8,   9,   8,   9,   8,   9,   8,   8,   9,  ""],
-    ["Residence Anna Theresia",     "Oost",           7,   8,   7,   7,   8,   7,   7,   8,   7,   7,  ""],
+    // Oost                                          T01  T02  T03  T04  T05  T06  T07  T08  T09  T10  Eindscore (gewogen)
+    ["De Boschstede",               "Oost",           7,   8,   7,   8,   7,   7,   8,   7,   7,   8,  7.4],
+    ["Groot Bijstervelt",           "Oost",           8,   9,   8,   9,   8,   8,   9,   8,   8,   8,  8.3],
+    ["Huis ter Weegen",             "Oost",           6,   7,   6,   7,   6,   6,   7,   6,   6,   7,  6.4],
+    ["Huis Welgelegen",             "Oost",           7,   7,   7,   8,   7,   7,   7,   7,   7,   8,  7.2],
+    ["Landgoed Klein Engelenburg",  "Oost",           9,   9,   8,   9,   9,   8,   9,   9,   8,   9,  8.7],
+    ["De Lindeborg",                "Oost",           7,   7,   6,   7,   7,   6,   7,   7,   6,   7,  6.7],
+    ["Villa Molenenk",              "Oost",           8,   7,   8,   8,   7,   8,   7,   8,   7,   8,  7.7],
+    ["Villa le Monde",              "Oost",           5,   5,   6,   5,   5,   6,   5,   5,   5,   5,  5.2],
+    ["Villa Pavia",                 "Oost",           8,   8,   7,   8,   8,   7,   8,   8,   8,   8,  7.8],
+    ["De Sterrenschans",            "Oost",           6,   6,   7,   6,   6,   7,   6,   6,   6,   7,  6.3],
+    ["De Wulperhorst",              "Oost",           9,   8,   9,   8,   9,   8,   9,   8,   8,   9,  8.5],
+    ["Residence Anna Theresia",     "Oost",           7,   8,   7,   7,   8,   7,   7,   8,   7,   7,  7.3],
     // West
-    ["Koetshuys Erica",             "West",           5,   5,   5,   4,   5,   5,   5,   5,   4,   5,  ""],
-    ["Residence Haganum",           "West",           8,   8,   9,   8,   8,   9,   8,   8,   8,   8,  ""],
-    ["Holland",                     "West",           7,   6,   7,   6,   7,   6,   7,   6,   7,   6,  ""],
-    ["De Magistraat",               "West",           7,   7,   8,   7,   7,   8,   7,   7,   7,   7,  ""],
-    ["Marienhaven",                 "West",           8,   8,   7,   8,   8,   7,   8,   8,   7,   8,  ""],
-    ["Villa Oranjepark",            "West",           6,   7,   6,   6,   7,   6,   6,   7,   6,   6,  ""],
-    ["Sint Jozefpaviljoen",         "West",           5,   4,   5,   5,   4,   5,   5,   5,   4,   5,  ""],
-    ["Slingerbosch",                "West",           7,   7,   7,   8,   7,   7,   7,   7,   7,   7,  ""],
-    ["Villa Walgaerde",             "West",           8,   8,   8,   8,   8,   8,   8,   8,   8,   8,  ""],
-    ["Het Witte Huis",              "West",           7,   7,   7,   6,   7,   7,   7,   7,   6,   7,  ""],
+    ["Koetshuys Erica",             "West",           5,   5,   5,   4,   5,   5,   5,   5,   4,   5,  4.8],
+    ["Residence Haganum",           "West",           8,   8,   9,   8,   8,   9,   8,   8,   8,   8,  8.2],
+    ["Holland",                     "West",           7,   6,   7,   6,   7,   6,   7,   6,   7,   6,  6.5],
+    ["De Magistraat",               "West",           7,   7,   8,   7,   7,   8,   7,   7,   7,   7,  7.2],
+    ["Marienhaven",                 "West",           8,   8,   7,   8,   8,   7,   8,   8,   7,   8,  7.7],
+    ["Villa Oranjepark",            "West",           6,   7,   6,   6,   7,   6,   6,   7,   6,   6,  6.3],
+    ["Sint Jozefpaviljoen",         "West",           5,   4,   5,   5,   4,   5,   5,   5,   4,   5,  4.8],
+    ["Slingerbosch",                "West",           7,   7,   7,   8,   7,   7,   7,   7,   7,   7,  7.1],
+    ["Villa Walgaerde",             "West",           8,   8,   8,   8,   8,   8,   8,   8,   8,   8,  8.0],
+    ["Het Witte Huis",              "West",           7,   7,   7,   6,   7,   7,   7,   7,   6,   7,  6.8],
     // Noord
-    ["Boarnsterhim Staete",         "Noord",          7,   6,   7,   7,   6,   7,   7,   6,   7,   7,  ""],
-    ["Residence Coestraete",        "Noord",          8,   8,   7,   8,   8,   7,   8,   8,   8,   7,  ""],
-    ["Het Hendrickszhuys",          "Noord",          7,   8,   7,   8,   7,   7,   8,   7,   8,   7,  ""],
-    ["Hildebrand",                  "Noord",          9,   8,   8,   9,   8,   8,   9,   8,   8,   9,  ""],
-    ["De Meerlhorst",               "Noord",          6,   6,   7,   6,   6,   7,   6,   6,   6,   6,  ""],
-    ["De Uylenburgh",               "Noord",          5,   6,   5,   5,   6,   5,   5,   6,   5,   5,  ""],
-    ["De Vermeer",                  "Noord",          8,   7,   8,   7,   8,   7,   8,   7,   8,   7,  ""],
-    ["Fleurage Residences",         "Noord",          8,   8,   8,   8,   8,   8,   8,   8,   8,   9,  ""],
+    ["Boarnsterhim Staete",         "Noord",          7,   6,   7,   7,   6,   7,   7,   6,   7,   7,  6.7],
+    ["Residence Coestraete",        "Noord",          8,   8,   7,   8,   8,   7,   8,   8,   8,   7,  7.7],
+    ["Het Hendrickszhuys",          "Noord",          7,   8,   7,   8,   7,   7,   8,   7,   8,   7,  7.4],
+    ["Hildebrand",                  "Noord",          9,   8,   8,   9,   8,   8,   9,   8,   8,   9,  8.4],
+    ["De Meerlhorst",               "Noord",          6,   6,   7,   6,   6,   7,   6,   6,   6,   6,  6.2],
+    ["De Uylenburgh",               "Noord",          5,   6,   5,   5,   6,   5,   5,   6,   5,   5,  5.3],
+    ["De Vermeer",                  "Noord",          8,   7,   8,   7,   8,   7,   8,   7,   8,   7,  7.5],
+    ["Fleurage Residences",         "Noord",          8,   8,   8,   8,   8,   8,   8,   8,   8,   9,  8.1],
   ];
   return [headers.join(",")].concat(rows.map(r => r.join(","))).join("\n");
 }
