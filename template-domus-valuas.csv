@@ -1,31 +1,31 @@
-Locatie,Regio,T01_Thuisvoelen,T02_Welzijn_centraal,T03_Samenwerking,T04_Respect_Reablement,T05_Hospitality,T06_Prikkelbalans,T07_Reeel_risico,T08_Belevingsgericht_werken,T09_Culturele_identiteit,T10_Omgevingsondersteuning
-De Boschstede,Oost,7,8,7,8,7,7,8,7,7,8
-Groot Bijstervelt,Oost,8,9,8,9,8,8,9,8,8,8
-Huis ter Weegen,Oost,6,7,6,7,6,6,7,6,6,7
-Huis Welgelegen,Oost,7,7,7,8,7,7,7,7,7,8
-Landgoed Klein Engelenburg,Oost,9,9,8,9,9,8,9,9,8,9
-De Lindeborg,Oost,7,7,6,7,7,6,7,7,6,7
-Villa Molenenk,Oost,8,7,8,8,7,8,7,8,7,8
-Villa le Monde,Oost,5,5,6,5,5,6,5,5,5,5
-Villa Pavia,Oost,8,8,7,8,8,7,8,8,8,8
-De Sterrenschans,Oost,6,6,7,6,6,7,6,6,6,7
-De Wulperhorst,Oost,9,8,9,8,9,8,9,8,8,9
-Residence Anna Theresia,Oost,7,8,7,7,8,7,7,8,7,7
-Koetshuys Erica,West,5,5,5,4,5,5,5,5,4,5
-Residence Haganum,West,8,8,9,8,8,9,8,8,8,8
-Holland,West,7,6,7,6,7,6,7,6,7,6
-De Magistraat,West,7,7,8,7,7,8,7,7,7,7
-Marienhaven,West,8,8,7,8,8,7,8,8,7,8
-Villa Oranjepark,West,6,7,6,6,7,6,6,7,6,6
-Sint Jozefpaviljoen,West,5,4,5,5,4,5,5,5,4,5
-Slingerbosch,West,7,7,7,8,7,7,7,7,7,7
-Villa Walgaerde,West,8,8,8,8,8,8,8,8,8,8
-Het Witte Huis,West,7,7,7,6,7,7,7,7,6,7
-Boarnsterhim Staete,Noord,7,6,7,7,6,7,7,6,7,7
-Residence Coestraete,Noord,8,8,7,8,8,7,8,8,8,7
-Het Hendrickszhuys,Noord,7,8,7,8,7,7,8,7,8,7
-Hildebrand,Noord,9,8,8,9,8,8,9,8,8,9
-De Meerlhorst,Noord,6,6,7,6,6,7,6,6,6,6
-De Uylenburgh,Noord,5,6,5,5,6,5,5,6,5,5
-De Vermeer,Noord,8,7,8,7,8,7,8,7,8,7
-Fleurage Residences,Noord,8,8,8,8,8,8,8,8,8,9
+Locatie,Regio,T01_Thuisvoelen,T02_Welzijn_centraal,T03_Samenwerking,T04_Respect_Reablement,T05_Hospitality,T06_Prikkelbalans,T07_Reeel_risico,T08_Belevingsgericht_werken,T09_Culturele_identiteit,T10_Omgevingsondersteuning,Eindscore
+De Boschstede,Oost,7,8,7,8,7,7,8,7,7,8,
+Groot Bijstervelt,Oost,8,9,8,9,8,8,9,8,8,8,
+Huis ter Weegen,Oost,6,7,6,7,6,6,7,6,6,7,
+Huis Welgelegen,Oost,7,7,7,8,7,7,7,7,7,8,
+Landgoed Klein Engelenburg,Oost,9,9,8,9,9,8,9,9,8,9,
+De Lindeborg,Oost,7,7,6,7,7,6,7,7,6,7,
+Villa Molenenk,Oost,8,7,8,8,7,8,7,8,7,8,
+Villa le Monde,Oost,5,5,6,5,5,6,5,5,5,5,
+Villa Pavia,Oost,8,8,7,8,8,7,8,8,8,8,
+De Sterrenschans,Oost,6,6,7,6,6,7,6,6,6,7,
+De Wulperhorst,Oost,9,8,9,8,9,8,9,8,8,9,
+Residence Anna Theresia,Oost,7,8,7,7,8,7,7,8,7,7,
+Koetshuys Erica,West,5,5,5,4,5,5,5,5,4,5,
+Residence Haganum,West,8,8,9,8,8,9,8,8,8,8,
+Holland,West,7,6,7,6,7,6,7,6,7,6,
+De Magistraat,West,7,7,8,7,7,8,7,7,7,7,
+Marienhaven,West,8,8,7,8,8,7,8,8,7,8,
+Villa Oranjepark,West,6,7,6,6,7,6,6,7,6,6,
+Sint Jozefpaviljoen,West,5,4,5,5,4,5,5,5,4,5,
+Slingerbosch,West,7,7,7,8,7,7,7,7,7,7,
+Villa Walgaerde,West,8,8,8,8,8,8,8,8,8,8,
+Het Witte Huis,West,7,7,7,6,7,7,7,7,6,7,
+Boarnsterhim Staete,Noord,7,6,7,7,6,7,7,6,7,7,
+Residence Coestraete,Noord,8,8,7,8,8,7,8,8,8,7,
+Het Hendrickszhuys,Noord,7,8,7,8,7,7,8,7,8,7,
+Hildebrand,Noord,9,8,8,9,8,8,9,8,8,9,
+De Meerlhorst,Noord,6,6,7,6,6,7,6,6,6,6,
+De Uylenburgh,Noord,5,6,5,5,6,5,5,6,5,5,
+De Vermeer,Noord,8,7,8,7,8,7,8,7,8,7,
+Fleurage Residences,Noord,8,8,8,8,8,8,8,8,8,9,
